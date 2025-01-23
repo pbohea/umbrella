@@ -5,9 +5,6 @@ require "json"
 pp "Hi! Where are you located?"
 
 user_loc = gets.chomp
-
-
-
 gmaps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{user_loc}&key=#{ENV.fetch("GMAPS_KEY")}"
 pp gmaps_url
 raw_response_gmaps = HTTP.get(gmaps_url)
@@ -44,3 +41,31 @@ summary_next_hour = hourly.fetch("summary")
 pp summary_next_hour
 
 pp "The current temperature is #{temp} and the weather for the next hour is projected to be #{summary_next_hour.downcase}"
+
+
+
+hourly_data = hourly.fetch("data")
+
+#now inside the data array. need to get each of the next 12. 
+pp hourly_data
+
+# for i in (0..11)
+
+rain = false
+
+12.times do |i|
+  inside = hourly_data.at(i)
+  precip_odds = inside.fetch("precipProbability")
+
+  if precip_odds > 0.1
+    rain = true
+  end
+end
+
+pp rain
+
+if rain == true
+  pp "You might want to carry an umbrella!"
+else 
+  pp "You probably won't need an umbrella today."
+end
