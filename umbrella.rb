@@ -4,9 +4,8 @@ require "dotenv/load"
 require "json"
 pp "Hi! Where are you located?"
 
-#user_loc = gets.chomp
-user_loc = "Chicago Booth Harper Center"
-pp user_loc
+user_loc = gets.chomp
+
 
 
 gmaps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{user_loc}&key=#{ENV.fetch("GMAPS_KEY")}"
